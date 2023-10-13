@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Submit Patient Data</title>
+</head>
+<body>
+  <h1>Submit Your Health Data</h1>
+  <form action="./submitData.html" method="post">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required><br>
+
+    <label for="nationalID">National ID:</label>
+    <input type="text" id="nationalID" name="nationalID" required><br>
+
+    <label for="heartRate">Heart Rate:</label>
+    <input type="number" id="heartRate" name="heartRate" required><br>
+
+    <label for="temperature">Temperature:</label>
+    <input type="number" id="temperature" name="temperature" required><br>
+
+    <button type="submit">Submit</button>
+  </form>
+  <script>
+
+    document.querySelector('form').addEventListener('submit', (e) => {
+      e.preventDefault();
+    
+      const name = document.getElementById('name').value;
+      const nationalID = document.getElementById('nationalID').value;
+      const heartRate = document.getElementById('heartRate').value;
+      const temperature = document.getElementById('temperature').value;
+    
+      fetch('/http://localhost:8000/submit-data', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, nationalID, heartRate, temperature }),
+      })
+        .then((response) => {
+          if (response.status === 200) {
+            
+            window.location.href = '/view/patientDashboard.html';
+          } else {
+
+            console.error('Data submission failed');
+          }
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+    });
+    </script>
+</body>
+</html>
