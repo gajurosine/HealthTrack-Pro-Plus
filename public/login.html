@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Login</title>
+</head>
+<body>
+  <h1>Admin Login</h1>
+  <form id="login-form" method="post">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required><br>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required><br>
+
+    <button type="submit">Login</button>
+  </form>
+
+  <script >
+document.getElementById('login-form').addEventListener('submit', function(event) {
+  event.preventDefault();
+
+  const username = document.getElementById('username').value;
+  const password = document.getElementById('password').value;
+  localStorage.setItem('name',username);
+  fetch('http://localhost:8000/admin/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ username, password }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.message === 'Login successful') {
+        alert('Login Successful');
+        window.location.href = '../public/admindashboard.html';
+      } else {
+        alert('Invalid username or password');
+      }
+      console.log('Data:', data);
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+});
+
+  </script>
+</body>
+</html>

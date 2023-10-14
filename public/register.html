@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Registration</title>
+</head>
+<body>
+  <h1>Admin Registration</h1>
+  <form id="registration-form" method="post">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required autocomplete="username"><br>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required autocomplete="current-password"><br>
+
+    <button type="submit">Register</button>
+  </form>
+  <script>
+    document.getElementById('registration-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      fetch('http://localhost:8000/admin/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        if (data.message === "Registration successful") {
+          // alert('Registration successful! Redirecting to login page.');
+
+          window.location.href = '../public/login.html';
+
+        } else {
+          console.log('Registration failed');
+        }
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+    });
+  </script>
+</body>
+</html>

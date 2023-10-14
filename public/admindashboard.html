@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin </title>
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+  <h1>Welcome doctor <span id="name"></span>!</h1>
+  <h2>Patient Records</h2>
+  <table id="patient-table">
+    <thead>
+      <tr>
+        <th>Patient ID</th>
+        <th>Name</th>
+        <th>National ID</th>
+        <th>Heart Rate</th>
+        <th>Temperature</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Data will be dynamically populated here -->
+    </tbody>
+  </table>
+
+  <script>
+    const name=localStorage.getItem('name')
+    document.getElementById('name').textContent=name;
+    fetch('http://localhost:8000/admin/patients') 
+      .then(response => response.json())
+      .then(data => {
+        const tableBody = document.querySelector('#patient-table tbody');
+        if (data.patients && data.patients.length > 0) {
+          data.patients.forEach(patient => {
+            const row = `
+              <tr>
+                <td>${patient.patientID}</td>
+                <td>${patient.patientName}</td>
+                <td>${patient.nationalID}</td>
+                <td>${patient.heartRate}</td>
+                <td>${patient.temperature}°F</td>
+              </tr>
+            `;
+            tableBody.insertAdjacentHTML('beforeend', row);
+          });
+        } else {
+          const row = '<tr><td colspan="5">No data available</td></tr>';
+          tableBody.insertAdjacentHTML('beforeend', row);
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  </script>
+  
+</body>
+</html>
