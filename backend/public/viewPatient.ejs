@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>View Patient Data</title>
+</head>
+<body>
+  <h1>Patient Data</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Patient ID</th>
+        <th>Name</th>
+        <th>National ID</th>
+        <th>Heart Rate</th>
+        <th>Temperature</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% patientRecords.forEach(function(record) { %>
+        <tr>
+          <td><%= record.patientID %></td>
+          <td><%= record.name %></td>
+          <td><%= record.nationalID %></td>
+          <td><%= record.heartRate %></td>
+          <td><%= record.temperature %></td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+</body>
+</html>
