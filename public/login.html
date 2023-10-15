@@ -22,7 +22,7 @@ document.getElementById('login-form').addEventListener('submit', function(event)
   const username = document.getElementById('username').value;
   const password = document.getElementById('password').value;
   localStorage.setItem('name',username);
-  fetch('http://localhost:8000/admin/login', {
+  fetch('http://localhost:7000/admin/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

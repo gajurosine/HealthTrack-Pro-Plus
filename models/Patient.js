@@ -10,5 +10,5 @@ class Patient{
     }
 }
 
-export default Patient;
+module.exports =  Patient;
 

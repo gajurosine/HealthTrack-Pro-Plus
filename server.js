@@ -8,7 +8,7 @@ import { dirname } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const app = express();
-const port = 8000;
+const port = 7000;
 const corsOptions = {
   origin: true,
   credentials: true,
@@ -29,7 +29,8 @@ app.get('/login', (req, res) => {
 });
 app.get('/admin/patients', (req, res) => {
   console.log('received get request');
-  const query = 'SELECT * FROM patients'; // Change this query according to your database schema
+  const query = 'SELECT * FROM patients'; 
+
   connection.query(query, (error, results) => {
     if (error) throw error;
     res.json(results);

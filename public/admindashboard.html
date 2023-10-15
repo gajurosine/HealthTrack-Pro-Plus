@@ -40,7 +40,7 @@
   <script>
     const name=localStorage.getItem('name')
     document.getElementById('name').textContent=name;
-    fetch('http://localhost:8000/admin/patients') 
+    fetch('http://localhost:7000/admin/patients') 
       .then(response => response.json())
       .then(data => {
         const tableBody = document.querySelector('#patient-table tbody');
@@ -59,7 +59,7 @@
           });
         } else {
           const row = '<tr><td colspan="5">No data available</td></tr>';
-          tableBody.insertAdjacentHTML('beforeend', row);
+          tableBody.insertAdjacentHTML('before end', row);
         }
       })
       .catch(error => {

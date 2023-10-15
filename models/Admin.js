@@ -1,8 +1,8 @@
 
 class Admin {
     
-    constructor(admiID, username, password) {
-        this.admiID = admiID;
+    constructor(adminID, username, password) {
+        this.adminID = adminID;
         this.username = username;
         this.password = password;
     }

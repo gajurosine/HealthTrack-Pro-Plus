@@ -3,24 +3,38 @@ import sqlite3 from 'sqlite3';
 const dbPath = 'healthmonitoring.db';
 
 export const register = (req, res) => {
-  const { username, password } = req.body;
-  const db = new sqlite3.Database(dbPath);
-  const insertQuery = 'INSERT INTO admin (username, password) VALUES (?, ?)';
-  
-  db.run(insertQuery, [username, password], (err) => {
-    if (err) {
-      console.error('Error during admin registration:', err);
-      res.status(500).json({ message: 'Registration failed' });
-    } else {
-      res.json({ message: 'Registration successful' });
-    }
+  try {
+    const { username, password } = req.body;
+    const db = new sqlite3.Database(dbPath);
+    const insertQuery = 'INSERT INTO admin (username, password) VALUES (?, ?)';
+    const selectQuery = 'SELECT * FROM admin WHERE username = ?';
 
-    db.close((err) => {
+    db.run(insertQuery, [username, password], (err) => {
       if (err) {
-        console.error('Error while closing the database:', err);
+        console.error('Error during admin registration:', err);
+        res.status(500).json({ message: 'Registration failed' });
+      } else {
+        db.get(selectQuery, [username], (err, row) => {
+          if (err) {
+            console.error('Error while verifying registration:', err);
+            res.status(500).json({ message: 'Registration failed' });
+          } else if (row) {
+            res.json({ message: 'Registration successful' });
+          } else {
+            res.status(500).json({ message: 'Registration verification failed' });
+          }
+        });
       }
+
+      db.close((err) => {
+        if (err) {
+          console.error('Error while closing the database:', err);
+        }
+      });
     });
-  });
+  } catch (error) {
+    console.log('error occured: ', error)
+  }
 };
 
 export const login = (req, res) => {
