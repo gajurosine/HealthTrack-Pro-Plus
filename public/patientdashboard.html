@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Patient Dashboard</title>
+</head>
+<style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+<body>
+  <h1>Hello  <span id="name"></span>! </h1>
+  <h2>Here is your health Data</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>NationalID</th>
+        <th>Heart Rate</th>
+        <th>Temperature</th>
+      </tr>
+    </thead>
+    <tbody>
+     
+        <tr>
+          <td id="nationalID"></td>
+          <td id="heartRate">heartRate </td>
+          <td id="temperature">temperature </td>
+        </tr>
+      
+    </tbody>
+  </table>
+</body>
+<script>
+  const name=localStorage.getItem('patientName')
+  const heartRate=localStorage.getItem('heartRate')
+  const temperature=localStorage.getItem('temperature')
+  const nationalID=localStorage.getItem('nationalID')
+  document.getElementById('name').textContent=name;
+  document.getElementById('heartRate').textContent=heartRate;
+  document.getElementById('temperature').textContent=temperature;
+  document.getElementById('nationalID').textContent=nationalID;
+</script>
+</html>

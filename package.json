@@ -1,0 +1,22 @@
+{
+  "name": "health-patients-monitaring-app",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "health monitoring application for patients",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "author": "rosine",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "nodemon": "^3.0.1",
+    "sqlite3": "^5.1.6"
+  }
+}
